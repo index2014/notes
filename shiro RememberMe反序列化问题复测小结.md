@@ -2,7 +2,7 @@
 
 # 前言
 
-几个月前处理了一起某客户处产生的Shiro反序列化漏洞问题，暂时做一下记录，并吐槽一下恶心人的第三方软件厂商
+几个月前处理了一起某客户处产生的Shiro反序列化漏洞问题，暂时做一下记录，并简单说明一下在和第三方厂商相关人员沟通中产生的问题
 
 # Shiro反序列化概述
 
@@ -12,9 +12,9 @@ Shiro提供了RememberMe的功能，即在关闭浏览器之后重新打开仍�
 
 其实该漏洞由于设置不当引起，任何版本的shiro使用默认秘钥均会引起反序列化问题，可直接获取root权限
 
-![image-20210110132913284](https://wx4.sinaimg.cn/large/bc5a20e8gy1gmijjd7dbwj20fe0dbwhi.jpg)
+![image-20210110132913284](https://github.com/index2014/notes/blob/main/img/shiro2.png?raw=true)
 
-![image-20210110133117299](https://wx4.sinaimg.cn/large/bc5a20e8gy1gmijjd8la0j21gw0jgq7z.jpg)
+![image-20210110133117299](https://github.com/index2014/notes/blob/main/img/shiro4.jpg?raw=true)
 
 # Shiro的RememberMe功能配置
 
@@ -188,7 +188,7 @@ Source Code is following:
   </bean>
 ```
 
-# 问题解决
+# 给出的解决方案
 
 修改其中秘钥为私有秘钥，或者使用动态秘钥生成器
 
@@ -252,19 +252,31 @@ public class GenerateCipherKey {
 
 最终解决方案：
 
-修改为私有固定秘钥，仍然有安全问题
+修改为私有固定秘钥，如若密钥被泄露，仍然有安全问题
 
 # 和第三方沟通中产生的问题
 
-第三方人员不知道从哪里照抄的代码段，上面注释写好的修改却没有修改
+从代码的注释中，可以得知第三方人员是完全照抄的代码段，该代码段中提及的修改，第三方人员并没有注意到
 
-要求其修改时，又问了好几遍为什么，无法理解修改完善方案
+在给出方案后，要求第三方进行漏洞修补修补时，第三方人员一再怀疑我方提出的修补方案，并且表示不知道为什么要进行修改
 
-下图直接好活当赏
+下图为第三方在默认环境下给出的关闭服务脚本
 
-![img](https://wx2.sinaimg.cn/large/bc5a20e8gy1gmijjd6rkjj20fd07dq39.jpg)
+![img](https://github.com/index2014/notes/blob/main/img/shiro3.jpg?raw=true)
 
 第三方给出的shutdown.sh
+
+脚本中第三方人员写入了删除tomcat工作目录下关于第三方提供的web应用程序所有文件的命令：
+
+```bash
+rm -rf /opt/xgxt/tomcat/webapps/*
+
+rm -rf /opt/xgxt/tomcat2/webapps/*
+```
+
+虽说发现及时未对漏洞修补带来影响，但是这样的行为实在是让人心寒
+
+幸好第三方人员最后还是在我方的一再催促下针对给出的修复意见进行了修复
 
 # 一般化建议
 
