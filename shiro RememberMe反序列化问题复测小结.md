@@ -12,9 +12,9 @@ Shiro提供了RememberMe的功能，即在关闭浏览器之后重新打开仍�
 
 其实该漏洞由于设置不当引起，任何版本的shiro使用默认秘钥均会引起反序列化问题，可直接获取root权限
 
-![image-20210110132913284](C:\Users\index\AppData\Roaming\Typora\typora-user-images\image-20210110132913284.png)
+![image-20210110132913284](https://wx4.sinaimg.cn/large/bc5a20e8gy1gmijjd7dbwj20fe0dbwhi.jpg)
 
-![image-20210110133117299](C:\Users\index\AppData\Roaming\Typora\typora-user-images\image-20210110133117299.png)
+![image-20210110133117299](https://wx4.sinaimg.cn/large/bc5a20e8gy1gmijjd8la0j21gw0jgq7z.jpg)
 
 # Shiro的RememberMe功能配置
 
@@ -262,7 +262,7 @@ public class GenerateCipherKey {
 
 下图直接好活当赏
 
-![img](file:///C:\Users\index\AppData\Local\Temp\msohtmlclip1\01\clip_image002.jpg)
+![img](https://wx2.sinaimg.cn/large/bc5a20e8gy1gmijjd6rkjj20fd07dq39.jpg)
 
 第三方给出的shutdown.sh
 
